@@ -12,7 +12,7 @@ const readline = require("readline")
 const { parsePhoneNumber } = require("libphonenumber-js")
 
 
-let phoneNumber = "916909137213"
+let phoneNumber = "254754783683"
 
 const pairingCode = !!phoneNumber || process.argv.includes("--pairing-code")
 const useMobile = process.argv.includes("--mobile")
@@ -26,7 +26,7 @@ const question = (text) => new Promise((resolve) => rl.question(text, resolve))
 let { version, isLatest } = await fetchLatestBaileysVersion()
 const {  state, saveCreds } =await useMultiFileAuthState(`./sessions`)
     const msgRetryCounterCache = new NodeCache() // for retry message, "waiting message"
-    const XeonBotInc = makeWASocket({
+    const ClingMd = makeWASocket({
         logger: pino({ level: 'silent' }),
         printQRInTerminal: !pairingCode, // popping up QR in terminal log
       mobile: useMobile, // mobile api (prone to bans)
@@ -51,7 +51,7 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./sessions`)
 
     // login use pairing code
    // source code https://github.com/WhiskeySockets/Baileys/blob/master/Example/example.ts#L61
-   if (pairingCode && !XeonBotInc.authState.creds.registered) {
+   if (pairingCode && !ClingMd.authState.creds.registered) {
       if (useMobile) throw new Error('Cannot use pairing code with mobile api')
 
       let phoneNumber
@@ -77,20 +77,20 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./sessions`)
       }
 
       setTimeout(async () => {
-         let code = await XeonBotInc.requestPairingCode(phoneNumber)
+         let code = await ClingMd.requestPairingCode(phoneNumber)
          code = code?.match(/.{1,4}/g)?.join("-") || code
          console.log(chalk.black(chalk.bgGreen(`Your Pairing Code : `)), chalk.black(chalk.white(code)))
       }, 3000)
    }
 //------------------------------------------------------
-    XeonBotInc.ev.on("connection.update",async  (s) => {
+    ClingMd.ev.on("connection.update",async  (s) => {
         const { connection, lastDisconnect } = s
         if (connection == "open") {
             await delay(1000 * 10)
-            await XeonBotInc.sendMessage(XeonBotInc.user.id, { text: `🪀Support/Contact Developer\n\n\n⎆Donate: https://i.ibb.co/w46VQ8D/Picsart-22-10-08-06-46-30-674.jpg\n\n⎆YouTube: https://youtube.com/@DGXeon\n\n⎆Telegram Channel: https://t.me/xeonbotinc\n\n⎆Telegram Chat: https://t.me/+AYOyJflnt-AzNGFl\n\n⎆WhatsApp Gc1: https://chat.whatsapp.com/Kjm8rnDFcpb04gQNSTbW2d\n\n⎆WhatsApp Gc2: https://chat.whatsapp.com/EEOnU0V7dl9HF1mMFO8QWa\n\n⎆WhatsApp Gc3: https://chat.whatsapp.com/Dh0lD0Ee5hN1JMFXNqtxSG\n\n⎆WhatsApp Pm: Wa.me/916909137213\n\n⎆Instagram: https://instagram.com/unicorn_xeon13\n\n⎆GitHub: https://github.com/DGXeon/\n\n⎆Blog: https://dreamguyxeonfiles.blogspot.com/2022/05/bots%20whatsapp%20mods.html?m=1\n\n\n` });
-            let sessionXeon = fs.readFileSync('./sessions/creds.json');
+            await ClingMd.sendMessage(XeonBotInc.user.id, { text: `🪀Support/Contact Developer\n\n\n⎆Donate: https://i.ibb.co/w46VQ8D/Picsart-22-10-08-06-46-30-674.jpg\n\n⎆YouTube: https://youtube.com/@DGXeon\n\n⎆Telegram Channel: https://t.me/xeonbotinc\n\n⎆Telegram Chat: https://t.me/+AYOyJflnt-AzNGFl\n\n⎆WhatsApp Gc1: https://chat.whatsapp.com/Kjm8rnDFcpb04gQNSTbW2d\n\n⎆WhatsApp Gc2: https://chat.whatsapp.com/EEOnU0V7dl9HF1mMFO8QWa\n\n⎆WhatsApp Gc3: https://chat.whatsapp.com/Dh0lD0Ee5hN1JMFXNqtxSG\n\n⎆WhatsApp Pm: Wa.me/916909137213\n\n⎆Instagram: https://instagram.com/unicorn_xeon13\n\n⎆GitHub: https://github.com/DGXeon/\n\n⎆Blog: https://dreamguyxeonfiles.blogspot.com/2022/05/bots%20whatsapp%20mods.html?m=1\n\n\n` });
+            let sessionCling = fs.readFileSync('./sessions/creds.json');
             await delay(1000 * 2) 
-             const xeonses = await  XeonBotInc.sendMessage(XeonBotInc.user.id, { document: sessionXeon, mimetype: `application/json`, fileName: `creds.json` })
+             const clingses = await  XeonBotInc.sendMessage(XeonBotInc.user.id, { document: sessionXeon, mimetype: `application/json`, fileName: `creds.json` })
              await XeonBotInc.sendMessage(XeonBotInc.user.id, { text: `⚠️Do not share this file with anybody⚠️\n
 ┌─❖
 │ Ohayo 😽
